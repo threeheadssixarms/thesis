@@ -1,0 +1,251 @@
+
+Chương này sẽ trình bày những lý thuyết cơ bản về giải thuật di truyền, giải thuật tiến hóa đa nhân tố và một số định nghĩa quan trọng về các bài toán tìm cây khung trên đồ thị phân cụm.
+
+\section{Giải thuật di truyền} \label{chap_coso:sec:ga}
+\subsection{Tổng quan về giải thuật di truyền} \label{chap_coso:sec_ga:subsec:tongquan}
+
+Giải thuật tiến hóa là một trong những giải thuật giải các bài toán tối ưu hoá, sử dụng những khái niệm quen thuộc trong sinh học và trong tiến hóa. Quần thể (population) tiến hóa bao gồm các cá thể (individuals) - đại diện cho những lời giải hợp lệ đối với bài toán. Nhiễm sắc thể (chromosome) hay bộ gen (genome) bao gồm nhiều gen (gene). Mỗi gen này thể hiện một đặc trưng của cá thể, đó có thể là một đặc trưng về kiểu gen (genotype) hoặc một đặc trưng về kiểu hình (phenotype). Cùng một gen thì giá trị hay biểu hiện của gen đó trên mỗi nhiễm sắc thể có thể khác nhau, phụ thuộc vào giá trị của gen đó.
+
+Giải thuật tiến hóa bao gồm rất nhiều mô hình khác nhau như giải thuật di truyền, lập trình di truyền, lập trình tiến hóa, chiến lược tiến hóa,... với ý tưởng chủ đạo là sử dụng một hoặc nhiều tác động trên một quần thể có sẵn để biến đổi quần thể, nâng cao khả năng thích nghi của quần thể \cite{agoston_eiben_2003, back_evolutionary_1996}. Ý tưởng này được thể hiện cụ thể trong từng mô hình theo những cách đặc trưng khác nhau của từng kĩ thuật đó.
+
+Giải thuật di truyền là một mô hình của giải thuật tiến hóa, sử dụng các toán tử di truyền như lai ghép, đột biến, chọn lọc,... để biến đổi quần thể ban đầu. Giải thuật di truyền được giới thiệu lần đầu vào năm 1975 bởi John Holland \cite{holland1975adaptation} và là mô hình đầu tiên của giải thuật tiến hóa được xây dựng và sử dụng \cite{agoston_eiben_2003, back_evolutionary_1996}. 
+
+\begin{algorithm}[htb]
+%	\KwIn{$G=(V,E); V = V_1 \cup V_2 \cup \ldots \cup V_k, V_i \cap V_j = \emptyset, \ \forall i \neq j; s \in V$}
+%	\KwOut{A valid solution $T_r=(V_r, E_r)$}
+%	\BlankLine
+	\Begin
+	{	
+		$g \leftarrow$ 0\;
+		Khởi tạo quần thể ban đầu $C_g$\;
+		\While{chưa đạt điều kiện dừng}
+		{
+			Đánh giá tính thích nghi của mỗi cá thể của $C_g$\;
+			$g \leftarrow$ g+1\;
+			Lựa chọn cá thể cha mẹ từ $C_{g-1}$\;
+			Lai ghép các cha mẹ được lựa chọn để tạo ra quần thể con $O_g$\;
+			Đột biến các cá thể trong $O_g$\;
+			Lựa chọn quần thể $C_g$ mới từ $C_{g-1}$ và $O_g$\;
+		}
+	}
+	\caption{Giải thuật di truyền}
+	\label{alg:Create_random_individual}
+\end{algorithm}
+
+
+\subsection{Biểu diễn cá thể} \label{chap_coso:sec_ga:subsec:bieudien}
+Lời giải được hiểu là một câu trả lời khả thi đối với bài toán. Biểu diễn cá thể, hay còn gọi là mã hóa lời giải, là một bước rất quan trọng trong các bài toán tối ưu, vì bước này ảnh hưởng trực tiếp đến chất lượng của lời giải và kết quả của các phép lai ghép, đột biến,...
+
+Trong các giải thuật di truyền, các cách biểu diễn lời giải phổ biến là: chuỗi số nhị phân, chuỗi số thực, hoán vị và cây. Tùy vào tính chất của mỗi bài toán mà người ta lựa chọn cách biểu diễn lời giải cho phù hợp. Mặc dù lời giải của cùng một bài toán có thể được biểu diễn bằng nhiều cách, nhưng nên lựa  chọn cách biểu diễn thể hiện được tính chất nào đó của lời giải hoặc tiện lợi cho việc áp dụng các toán tử di truyền.
+
+\subsection{Khởi tạo quần thể} \label{chap_coso:sec_ga:subsec:khoitaoquanthe}
+Quần thể di truyền trong giải thuật di truyền là tập hợp những cá thể - lời giải hợp lệ và khả thi đối với bài toán đang được xem xét. Việc khởi tạo quần thể di truyền cùng với việc chọn lọc cá thể cho thế hệ tiếp theo đóng vai trò quan trọng trong việc đảm bảo các cá thể trong không gian tìm kiếm cũng như đầu vào của các phép lai ghép, đột biến là hợp lệ, tương ứng với những lời giải hợp lệ.
+
+Có nhiều phương pháp khởi tạo quần thể cho một giải thuật di truyền. Tùy thuộc vào bài toán đang được giải và cách biểu diễn (mã hóa) lời giải mà cách khởi tạo được lựa chọn cho phù hợp.
+
+\subsection{Lựa chọn cá thể cha mẹ} \label{chap_coso:sec_ga:subsec:luachoncathechame}
+Một số cách lựa chọn cá thể cha mẹ để tiến hành lai ghép:
+
+\subsubsection{Lựa chọn dựa theo độ thích nghi (Fitness Proportion Selection)}
+Lựa chọn xén (Truncation Selection): Các cá thể của quần thể được sắp xếp theo thứ tự giảm dần về độ thích nghi. Một ngưỡng xén Trunc được đưa ra để xác định bao nhiêu \% các cá thể trong quần thể đang xét sẽ được chọn để tham gia quá trình sinh sản tạo ra thế hệ tiếp theo. Ngưỡng xén Trunc của các thế hệ không nhất thiết giống nhau mà có thể được điều chỉnh dựa theo mức độ thích nghi của các cá thể trong mỗi thế hệ đối với môi trường.
+
+Lựa chọn theo bánh xe Roulette (Roulette Wheel Selection): Cách lựa chọn này hoạt động dựa trên nguyên lý của bánh xe roulette với ý tưởng "cá thể có độ thích nghi càng cao thì xác suất được lựa chọn càng cao". Bánh xe roulette là một bàn quay hình tròn với góc ở tâm bàn quay được chia thành các góc với số đo góc không cần đều nhau. Tỉ lệ giữa số đo góc với góc $360^o$ tương ứng với tỉ lệ giữa độ thích nghi của cá thể với tổng độ thích nghi của cả quần thể.
+
+Nói cách khác, cá thể có độ thích nghi càng cao thì góc tương ứng với nó trên bánh xe Roulette càng lớn, khả năng được quay vào càng cao. Một điểm cố định được chọn trên bánh xe. Mỗi lượt quay sẽ có một cá thể được chọn ra nhờ vào điểm cố định đó, do đó cần chọn bao nhiêu cá thể thì sẽ cần quay bấy nhiêu lượt.
+
+Lựa chọn theo kiểu rải (Stochastic Universal Sampling – SUS): Cách lựa chọn này gần giống với với bàn quay Roulette nhưng thay vì chỉ có duy nhất một điểm cố định trên bàn quay thì nhiều điểm sẽ được chọn sẵn. Do đó, chỉ cần quay một lần là có thể chọn được nhiều hay thậm chí là tất cả các cá thể cha mẹ cần lựa chọn cho thế hệ đó. Lựa chọn theo kiểu rải cho phép tiết kiệm thời gian vì chỉ cần quay một lần mà chọn được nhiều cá thể, ngoài ra, việc lựa chọn trùng lặp cũng được hạn chế tối đa so với bàn quay Roulette.
+
+\subsubsection{Lựa chọn ngẫu nhiên (Random Selection)}
+Các cá thể cha mẹ tham gia quá trình sinh sản được lựa chọn hoàn toàn ngẫu nhiên theo số lượng hoặc tỉ lệ xác định sẵn. Trong một số bài toán, có những cá thể cha mẹ không phải là tốt nhất trong quần thể nhưng khi lai ghép với nhau lại có thể cho ra những cá thể con rất tốt.
+
+\subsubsection{Lựa chọn dựa theo thứ hạng trong quần thể (Rank Selection)}
+Đôi khi việc lựa chọn cá thể cha mẹ dựa vào độ thích nghi gặp khó khăn khi mà độ thích nghi của các cá thể chênh lệch không nhiều, dẫn đến xác suất chúng được lựa chọn gần như là bằng nhau. Khi đó, hiệu quả của phép lựa chọn không khác gì phép lựa chọn ngẫu nhiên. Để tránh tình huống đó, người ta không xét đến độ thích nghi của các cá thể nữa mà quan tâm tới thứ hạng của chúng trong quần thể.
+
+Thứ hạng này được dựa trên độ thích nghi đối với môi trường. Những cá thể có thứ hạng cao thì được ưu tiên lựa chọn để đưa vào sinh sản tạo thế hệ mới.
+
+\subsubsection{Lựa chọn giao đấu (Tournament Selection)}
+Đây cũng là một phép lựa chọn được ưa chuộng trong nhiều giải thuật di truyền. Ưu điểm của cách lựa chọn này là nó có thể được áp dụng cho những trường hợp mà độ thích nghi của các cá thể có thể mang giá trị âm, gây khó khăn cho lựa chọn dựa trên độ thích nghi.
+Số nguyên k>0 được xác định làm tham số cho phép lựa chọn giao đấu. Ở mỗi lượt lựa chọn, k  cá thể được lựa chọn ngẫu nhiên từ quần thể đang xét. Dựa vào độ thích nghi, cá thể tốt nhất trong k cá thể này được lựa chọn làm cá thể cha mẹ. Quá trình này được thực hiện nhiều lần cho đến khi chọn được đủ số cá thể cha mẹ mong muốn.
+
+\subsection{Lai ghép} \label{chap_coso:sec_ga:subsec:laighep}
+Trong tự nhiên, con người và các động vật khác khi sinh ra đã mang những đặc điểm thừa hưởng từ cả bố và mẹ. Những đặc điểm này là do gene của con được sao chép một phần từ bố và phần còn lại từ mẹ. Tương tự như vậy, phép lai ghép trong giải thuật di truyền cho phép tạo ra những cá thể con từ một phần của cá thể cha ghép với một phần của cá thể mẹ. Cách lựa chọn phần gene nào để ghép và ghép như thế nào được trình bày cụ thể trong từng phương pháp khác nhau. Một số phương pháp lai ghép phổ biến là:
+
+\subsubsection{Lai ghép một điểm cắt (One Point Crossover)}
+Một điểm được chọn giống nhau trên cá thể cha và cá thể mẹ, chia mỗi cá thể làm hai phần. Con thứ nhất thừa hưởng phần bên trái của cha và phần bên phải của mẹ. Con thứ hai, ngược lại, thừa hưởng phần bên phải của cha và phân bên trái của mẹ.
+
+\subsubsection{Lai ghép nhiều điểm cắt (Multi Point Crossover)}
+Nhiều điểm được lựa chọn trên những vị trí giống nhau trên cá thể cha và cá thể mẹ, tạo nên những khoảng nằm giữa hai cặp điểm liền kề. Những khoảng này trên cha mẹ được tráo cho nhau để tạo ra kiểu gene của cá thể con.
+
+\subsubsection{Lai ghép đồng nhất (Uniform Crossover)}
+Thay vì tráo đổi gene theo từng đoạn gen giữa cá thể cha và cá thể mẹ như trong lai ghép đơn điểm và đa điểm, lai ghép đồng nhất tráo đổi gen theo từng gen. Để tạo ra một con, ta tung đồng xu cho mỗi gene để quyết định gene đó con sẽ thừa kế của cha hay của mẹ.
+
+\subsection{Đột biến} \label{chap_coso:sec_ga:subsec:dotbien}
+Mặc dù lai ghép trong giải thuật di truyền cho phép trộn các đặc điểm di truyền của các cá thể có sẵn, từ đó tạo ra một số cá thể thừa hưởng được đặc điểm tốt từ cha và mẹ, tuy nhiên nó không đem lại sự đa dạng và nguồn gene mới cho quần thể.
+
+Trong khi đó, đột biến giải quyết được yêu cầu này. Đột biến làm thay đổi ngẫu nhiên một phần nhỏ của cá thể, đảm bảo cho việc duy trì và phát triển tính đa dạng của nguồn nguyên liệu gene. Xác suất đột biến thường được đặt giá trị nhỏ, vì với một xác suất đột biến lớn thì giải thuật di truyền mất đi ưu thế và trở thành tìm kiếm ngẫu nhiên.
+Một số phép đột biến phổ biến là:
+
+\subsubsection{Đột biến đảo bit (Bit Flip Mutation)}
+Đột biến đảo bit được sử dụng cho cách biểu diễn nhị phân. Một gene bất kì trên cá thể đem đột biến được đảo bit.
+
+\subsubsection{Đột biến hoán vị (Swap Mutation)}
+Đột biến hoán vị thường được sử dụng cho cách biểu diễn hoán vị. Ta chọn hai vị trí bất kì rồi hoán đổi gene ở hai vị trí đó cho nhau.
+
+\subsubsection{Đột biến trộn (Scramble Mutation)}
+Đột biến trộn cũng được sử dụng cho cách biểu diễn hoán vị. Từ nhiễm sắc thể, ta chọn ra một tập con gồm một số gene và đảo vị trí trên nhiễm sắc thể của các gene đó cho nhau.
+
+\subsubsection{Đột biến đảo đoạn (Inversion Mutation)}
+Một đoạn gene trên nhiễm sắc thể được lựa chọn và đảo ngược vị trí các gene trên đoạn đó.
+
+
+
+\subsection{Chọn lọc cá thể cho thế hệ tiếp theo} \label{chap_coso:sec_ga:subsec:luachonthehe} 
+Chọn lọc cá thể cho thế hệ tiếp theo (hay còn gọi là chọn lọc sinh tồn~-~Survivor Selection) là bước quyết định cá thể nào sẽ bị loại bỏ, cá thể nào sẽ được giữ lại cho quần thể của thế hệ tiếp theo. Dễ dàng có thể nhận thấy rằng những cá thể có độ thích nghi cao cần được giữ lại vì những cá thể này truyền lại những chất liệu di truyền tốt cho thế hệ sau. Tuy nhiên, việc chọn lọc cá thể không nên chỉ dừng lại ở chọn tất cả các cá thể tốt nhất, mà cần xem xét đến việc duy trì và phát triển tính đa dạng trong nguồn nguyên liệu gene của quần thể. Có hai phương pháp chọn lọc phổ biến là dựa vào tuổi và dựa vào độ thích nghi.
+
+\subsubsection{Chọn lọc dựa vào tuổi}
+Chọn lọc dựa vào tuổi (Age Based Selection) không xem xét đến độ thích nghi của cá thể mà thay vào đó là tuổi hay thời gian tồn tại của cá thể. Khi cá thể đã trải qua số thế hệ tối đa được quy định, chúng sẽ bị loại bỏ khỏi quần thể cho dù độ thích nghi cao hay thấp.
+
+Ưu điểm của phương pháp này sự đa dạng của các cá thể trong cùng một thế hệ cũng như sự đa dạng về thành phần quần thể qua các thế hệ khác nhau được nâng cao. Khi trải qua nhiều quá trình tiến hóa qua nhiều thế hệ mà quần thể vẫn chưa thỏa mãn điều kiện dừng của thuật toán, thì có thể chính những cá thể có độ thích nghi cao được giữ lại quá lâu đã kìm hãm sự phát triển của quần thể. Điều này là hoàn toàn có thể, vì đôi khi, những cá thể cha mẹ có độ thích nghi không tốt lại tạo ra cá thể con có độ thích nghi tốt hơn. 
+Tuy nhiên, phương pháp chọn lọc dựa vào tuổi có nhược điểm là không thể đảm bảo xu hướng phát triển của quần thể sau là tiến hóa hơn so với thế hệ trước, hay nói cách khác là phương pháp này có thể gây ra tiến hóa "ngược" hay tiến hóa "lùi".
+
+\subsubsection{Chọn lọc dựa vào độ thích nghi}
+Khác với chọn lọc dựa vào tuổi cá thể, chọn lọc dựa vào độ thích nghi (Fitness Based Selection) không quan tâm tới thời gian tồn tại của cá thể trong quần thể mà chỉ hoàn toàn dựa vào độ thích nghi. Do đó, những cá thể có độ thích nghi cao có thể được giữ lại trong quần thể qua rất nhiều thế hệ tiến hóa.
+
+Chọn lọc dựa vào độ thích nghi bao gồm nhiều phương pháp như chọn lọc xén (Truncation Selection), chọn lọc theo bánh xe Roulette (Roulette Wheel Selection), chọn lọc theo kiểu rải (Stochastic Universal Sampling – SUS) hay chọn lọc giao đấu.
+
+\subsection{Điều kiện dừng của giải thuật di truyền} \label{chap_coso:sec_ga:subsec:dkdung} 
+Điều kiện dừng  (Termination Condition) của bài toán được lựa chọn với mục đích xác định thời điểm lời giải gần nhất với lời giải đúng được tìm ra và dung hòa được yếu tố chi phí thời gian. Để tìm được thời điểm đó, thông thường các điều kiện sau có thể được chọn làm điều kiện dừng.
+
+\subsubsection{Khi chất lượng lời giải không tiếp tục cải thiện}
+Sự cải thiện chất lượng lời giải qua các thế hệ đầu thường rất tốt, tuy nhiên qua càng nhiều thế hệ, sự cải thiện đó càng bớt rõ rệt đi. Hiện tượng đó còn được gọi là sự hội tụ.
+Khi chất lượng lời giải hầu như không còn cải thiện nữa, việc duy trì giải thuật không còn nhiều ý nghĩa. Lời giải tốt nhất mà giải thuật có thể tìm được khi đó được coi là đã xuất hiện.
+
+\subsubsection{Sau số thế hệ nhất định}
+Trong thực tế, việc giải quyết một vấn đề thường bị giới hạn trong một khoảng thời gian nhất định hoặc đem lại ưu thế nếu tiết kiệm được thời gian. Dừng giải thuật khi quần thể tiến hóa đã trải qua một số thế hệ nhất định là một phương pháp phổ biến, cho phép khống chế thời gian thực hiện của thuật toán.
+
+\subsubsection{Khi hàm mục tiêu hoặc độ thích nghi của cá thể đạt mục tiêu nhất định}
+Việc cố gắng tìm ra lời giải tốt nhất đôi khi không quan trọng bằng tìm ra một lời giải đủ đáp ứng yêu cầu thực tế đặt ra. Cũng như biện pháp dừng giải thuật sau số thế hệ nhất định, điều kiện dừng dựa vào độ thích nghi đạt mục tiêu nhất định có ưu điểm về mặt thời gian. Đây là biện pháp dung hòa được tiêu chí về thời gian chạy và chất lượng lời giải.
+
+%%=================--------------------------------2.	Giải thuật tiến hóa đa nhân tố---------------------------========================
+\section{Giải thuật tiến hóa đa nhân tố} \label{chap_coso:sec:mfea}
+\subsection{Bài toán tối ưu đa nhân tố} \label{chap_coso:sec_mfea:subsec:baitoandanhanto}
+Bài toán \gls{mfo} là nhóm các bài toán giải quyết đồng thời hai hoặc nhiều tác vụ tối ưu. Các tác vụ này có thể giống hay khác nhau ở loại bài toán, số chiều và cách biểu diễn lời giải và có thể phụ thuộc hay không phụ thuộc lẫn nhau. \gls{mfo} do đó được đặc trưng bởi sự tồn tại đồng thời của nhiều không gian tìm kiếm với số chiều và cách biểu diễn khác nhau, cũng như những hàm mục tiêu khác nhau cho mỗi tác vụ (bài toán) con. Trong thực tế, nhiều hệ thống đòi hỏi việc giải quyết hiệu quả những yêu cầu rất đa dạng từ người dùng với số lượng lớn trong thời gian ngắn. Đó chính là một trong những ứng dụng của bài toán \gls{mfo}.
+
+\subsection{Giải thuật tiến hóa đa nhân tố} \label{chap_coso:sec_mfea:subsec:gttienhoadanhanto}
+\glsreset{mfo}
+\glsreset{mfea}
+
+Hiện nay có rất nhiều những hướng tiếp cận để giải bài toán MFO. Trong đó, giải thuật \gls{mfea} đề xuất bởi tác giả A. Gupta và các cộng sự \cite{gupta_multifactorial_2016} giải quyết bài toán \gls{mfo} tổng quát với ý tưởng chính như sau:
+\begin{itemize}
+	\item Tạo ra một không gian tìm kiếm duy nhất với cách biểu diễn chung cho tất cả các tác vụ.
+	\item Áp dụng các toán tử của giải thuật tiến hóa như khởi tạo quần thể, lai ghép, đột biến lên không gian tìm kiếm chung để biến đổi quần thể.
+	\item Đánh giá mỗi lời giải – cá thể trong không gian tìm kiếm chung thông qua những tiêu chí thể hiện chất lượng của lời giải đối với từng tác vụ hoặc vai trò của lời giải đối với quần thể.
+	\item Để thuận tiện cho việc đánh giá trên cũng như để tìm ra lời giải của từng tác vụ sau khi áp dụng giải thuật \gls{mfea}, cần có cách chuyển đổi giữa cá thể trong không gian tìm kiếm chung và lời giải cho từng tác vụ.
+\end{itemize}
+
+
+\subsection{Các tiêu chí đánh giá cá thể} \label{chap_coso:sec_mfea:subsec:tieuchidanhgia}
+Các cá thể được đánh giá thông qua bốn tiêu chí như sau:
+\begin{itemize}
+	\item \gls{faccost}: mức độ hiệu quả của cá thể khi giải mỗi bài toán.
+	\item \gls{facrank}: thứ hạng dựa trên chi phí đối với tác vụ, khi so sánh với tất cả các cá thể trong quần thể đang xét.
+	\item \gls{scafit}: được tính bằng nghịch đảo của xếp hạng tốt nhất (xếp hạng “cao” nhất) trong các xếp hạng của cá thể đó đối với các tác vụ.
+	\item \gls{skifac}: tác vụ mà cá thể có xếp hạng cao nhất trong tất cả các tác vụ của bài toán.
+\end{itemize}
+
+\subsection{Cấu trúc của giải thuật tiến hóa đa nhân tố} \label{chap_coso:sec_mfea:subsec:cautrucmfea}
+Các bước chi tiết của giải thuật \gls{mfea} được mô tả trong thuật toán \ref{alg:cau_truc_mfea}
+\begin{algorithm}[htb]
+	%	\KwIn{$G=(V,E); V = V_1 \cup V_2 \cup \ldots \cup V_k, V_i \cap V_j = \emptyset, \ \forall i \neq j; s \in V$}
+	%	\KwOut{A valid solution $T_r=(V_r, E_r)$}
+	%	\BlankLine
+	\Begin
+	{	
+		Khởi tạo một quần thể ngẫu nhiên P\;
+		Đánh giá mỗi cá thể đối với từng tác vụ MFEA\;
+		Tính skill factor của mỗi cá thể\;
+		\While{chưa đạt điều kiện dừng}
+		{
+			Áp dụng các toán tử di truyền lên P để tạo ra quần thể con C\;
+			Đánh giá các cá thể trong C đối với một số tác vụ nhất định\;
+			Hợp P và C để tạo thành quần thể trung gian I\;
+			Cập nhật scalar fitness và skill factor của tất cả mọi cá thể trong I\;
+			Lựa chọn những cá thể có scalar fitness cao nhất nhất từ I để tạo nên quần thể P mới\;
+		}
+	}
+	\caption{Giải thuật tiến hóa đa nhân tố (MFEA)}
+	\label{alg:cau_truc_mfea}
+\end{algorithm}
+
+
+\subsection{Cơ chế ghép đôi cùng loại} \label{chap_coso:sec_mfea:subsec:cocheghepdoi}
+Như đã trình bày ở phần 1.1 về giải thuật di truyền, các giải thuật tiến hóa nói chung và các giải thuật di truyền nói riêng sử dụng các toán tử tiến hóa như lai ghép và đột biến để biến đổi quần thể. Tuy nhiên, giải thuật tiến hóa đa nhân tố áp dụng các toán tử này thông qua một cơ chế đặc biệt được gọi là \textit{cơ chế ghép đôi cùng loại} (assortative mating). Cơ chế này phân định rõ trường hợp nào lai ghép sẽ xảy ra và trường hợp nào không. Những cặp cá thể cha mẹ đã được chọn ngẫu nhiên sẽ được so sánh về skill factor: nếu cá thể cha và cá thể mẹ có cùng skill factor thì chúng sẽ được lai ghép với nhau để tạo ra hai cá thể đời con. Các cặp cha mẹ còn lại không có cùng skill factor thì sẽ được lai ghép theo một tỉ lệ \% xác định. Tỉ lệ đó được gọi là \gls{rmp}. Những cá thể cha mẹ không được lai ghép sẽ đột biến để tạo ra các cá thể.
+
+Các bước của cơ chế ghép đôi cùng loại được trình bày trong giải thuật \ref{alg:AssortativeMating}:
+\begin{algorithm}[htb]
+	%	\KwIn{$G=(V,E); V = V_1 \cup V_2 \cup \ldots \cup V_k, V_i \cap V_j = \emptyset, \ \forall i \neq j; s \in V$}
+	%	\KwOut{A valid solution $T_r=(V_r, E_r)$}
+	%	\BlankLine
+	\Begin
+	{	
+		Tạo một số ngẫu nhiên rand nằm trong đoạn [0, 1]\;
+		\If{cá thể cha mẹ cùng skill factor or rand < rmp}
+		{
+			Cá thể cha mẹ lai ghép tạo ra hai cá thể con\;
+		}
+		\Else
+		{
+			Cá thể cha đột biến tạo ra cá thể con thứ nhất\;
+			Cá thể mẹ đột biến tạo ra cá thể con thứ hai\;
+		}
+	
+	}
+	\caption{Cơ chế ghép đôi cùng loại (Assortative Mating)}
+	\label{alg:AssortativeMating}
+\end{algorithm}
+
+
+\subsection{Cơ chế đánh giá có chọn lọc} \label{chap_coso:sec_mfea:subsec:cochedanhgiachonloc}
+Theo \cite{gupta_multifactorial_2016}, mỗi cá thể trong quần thể \gls{mfea} khó có thể đem tới lời giải tốt cho tất các tác vụ \gls{mfea}. Do đó, việc đánh giá tất cả các cá thể cho tất cả các tác vụ ở mỗi một thế hệ là vô cùng lãng phí. Lí tưởng hơn cả nếu như mỗi cá thể chỉ được đánh giá cho những tác vụ nào mà chúng có khả năng giải quyết tốt nhất. Do đó, \gls{mfea} sử dụng một cơ chế có tên gọi là \textit{Cơ chế đánh giá có chọn lọc} (selective evaluation), dựa trên hiện tượng \textit{truyền lại đặc tính theo chiều dọc} (vertical cultural transmission) trong sinh học. Cụ thể, một cá thể có thể bị ảnh hưởng trực tiếp bởi kiểu hình của cha hoặc mẹ, thay vì chỉ thừa hưởng kiểu gen. Trong \gls{mfea}, nguyên lí này được thể hiện thông qua việc mô phỏng có chọn lọc skill factor của cha hoặc mẹ như sau: 
+
+Như đã trình bày ở \ref{chap_coso:sec_mfea:subsec:cocheghepdoi} một số cá thể con được tạo ra từ quá trình lai ghép, trong khi số còn lại được tạo ra từ quá trình đột biến.
+
+Đối với các cá thể con được tạo ra từ quá trình lai ghép: một số cá thể sẽ được đánh giá dựa trên skill factor của cá thể bố, số còn lại được đánh giá dựa trên skill factor của cá thể mẹ. Khả năng được đánh giá theo cá thể bố và khả năng được đánh giá theo cá thể mẹ là bằng nhau (tỉ lệ 50:50).
+
+Đối với các cá thể con được tạo ra từ quá trình đột biến: cá thể con sẽ được đánh giá dựa trên skill factor từ cá thể đã đột biến ra nó.
+
+Đánh giá dựa trên skill factor của cha (mẹ): Factorial cost của cá thể con đối với tác vụ là skill factor của cha (mẹ) được chọn để đánh giá sẽ được tính toán. Factorial cost của cá thể con đối với các tác vụ còn lại được coi như rất lớn.
+
+Các bước chi tiết của Cơ chế đánh giá có chọn lọc được trình bày trong thuật toán \ref{alg:SelectiveEvaluation}
+\begin{algorithm}[htb]
+	Một cá thể con c sẽ có hai cá thể cha ($p_a$ và $p_b$) hoặc chỉ một cá thể cha ($p_a$ hoặc $p_b$) sau bước Ghép đôi cùng loại.\;
+	%	\KwIn{Một cá thể con c sẽ có hai cá thể cha (p_a và p_b) hoặc chỉ một cá thể cha (p_a hoặc p_b) sau bước Ghép đôi cùng loại.}
+	%	\KwOut{A valid solution $T_r=(V_r, E_r)$}
+	%	\BlankLine
+	\Begin
+	{			
+		\If{c có hai cá thể cha}
+		{
+			Tạo một số ngẫu nhiên rand trong khoảng (0,1)\;
+			\If{rand < 0.5}
+			{
+				\tcc{Chỉ đánh giá c theo $\tau_a$  (skill factor của $p_a$).}  
+				c mô phỏng theo $p_a$\; 
+			}
+			\Else
+			{
+				\tcc{Chỉ đánh giá c theo  $\tau_b$  (skill factor của $p_b$).}  
+				c mô phỏng $p_b$\;
+			}
+		}
+		\Else
+		{
+			\tcc{Chỉ đánh giá c theo skill factor của cha.} 
+			c mô phỏng cha duy nhất\;
+		}
+		Chi phí của c đối với tất cả các tác vụ còn lại được gán một giá trị rất lớn\;
+	}
+	\caption{Cơ chế đánh giá có chọn lọc (Selective Evaluation)}
+	\label{alg:SelectiveEvaluation}
+\end{algorithm}
+

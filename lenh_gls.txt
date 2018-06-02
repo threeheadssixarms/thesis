@@ -1,0 +1,8 @@
+\gls{mfea}
+\gls{clumrct}
+\gls{cstp}
+\gls{uss}
+\gls{ga}
+\gls{rmp} 
+
+

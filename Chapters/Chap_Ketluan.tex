@@ -1,0 +1,34 @@
+Đồ án đã trình bày những nội dung sau:
+\begin{itemize}
+	\item Trình bày tổng quát nội dung của các giải thuật di truyền và các phương pháp phổ biến được áp dụng cho giải thuật.
+	\item Trình bày về giải thuật MFEA cơ bản và các nhân tố trong giải thuật.
+	\item Khái quát mô hình hai bài toán CluSPT và CluMRCT.
+	\item Đề xuất một giải thuật CluMFEA và để giải đồng thời hai bài toán CSPT và CluMRCT bao gồm đề xuất mã hóa cá thể, lai ghép, đột biến.
+	\item Đề xuất một giải thuật CluGA đơn nhiệm với cùng cách mã hóa cá thể và các toán tử lai ghép, đột biến với CluMFEA để giải bài toán CSPT và CluMRCT.
+\end{itemize}
+Đồ án đã thu được những kết quả thực nghiệm sau:
+\begin{itemize}
+	\item Cài đặt thành công giải thuật CluMFEA và CluGA đã đề xuất.
+	\item Chạy thử nghiệm CluMFEA đa nhiệm giải đồng thời hai bài toán CSPT và CluMRCT.
+	\item Chạy thử nghiệm CluGA đơn nhiệm lần lượt đối với từng bài toán CSPT và CluMRCT. 
+	\item Tập hợp kết quả so sánh hai giải thuật trên các tập dữ liệu chuẩn, gồm tổng cộng 85 bộ dữ liệu, mỗi bộ chạy 20 lần.
+	\item Tổng hợp kết quả và thực hiện các công việc thống kê, phân tích, đánh giá các kết quả thực nghiệm.
+\end{itemize}
+
+Kết quả thực nghiệm cho thấy giải thuật CluMFEA cho ra những kết quả vượt trội hơn CluGA ở một số bộ dữ liệu nhưng kém hơn ở một số bộ dữ liệu. Tuy nhiên, đồ án đã chỉ ra và chứng minh được một yếu tố quan trọng quyết định CluMFEA hay CluGA vượt trội hơn: đó là tỉ lệ giữa số cụm và số đỉnh của đồ thị đầu vào, hay dễ hiểu hơn là yếu tố liên quan đến số đỉnh trung bình của mỗi cụm. Giải thuật CluMFEA giải hai bài toán cùng một lúc có thời gian chạy bằng hoặc chỉ gần bằng thời gian chạy một bài toán đơn lẻ với CluGA, do ở mỗi thế hệ mỗi cá thể mới sinh ra chỉ được đánh giá với một tác vụ duy nhất thay vì với cả hai tác vụ CluMFEA, dẫn tới tổng số phép đánh giá của CluMFEA chỉ bằng chứ không gấp đôi của CluGA. Điều này là phù hợp với những phân tích về mặt lý thuyết đã trình bày trước đó.
+
+Từ những phân tích trên, đồ án rút ra được giải thuật CluMFEA đã được đề xuất có ưu thế về mặt thời gian hơn so với giải thuật CluGA khi cần giải cả hai bài toán CSPT và CluMRCT. Về mặt chất lượng lời giải, giải thuật CluMFEA mang lại những kết quả tốt hơn đáng kể so với CluGA khi áp dụng cho những bài toán có tỉ lệ giữ số cụm và số đỉnh dưới 0.2. Tỉ lệ này càng tăng thì sự vượt trội so với CluGA càng giảm. Khi tỉ lệ vượt mức 0.2 thì đối với bài toán CSPT giải thuật CluMFEA đã đề xuất không đem lại nhiều lợi ích hơn so với CluGA, nhưng ở một số bộ dữ liệu CluMFEA giành được ưu thế khi giải bài CluMRCT. Điều đó cho thấy tỉ lệ số cụm/ số đỉnh không phải yếu tố quyết định duy nhất.
+Do giới hạn của đồ án cũng như do những giới hạn về kiến thức, kinh nghiệm và kĩ năng của người thực hiện, đồ án chắc chắn còn tồn tại nhiều thiếu sót, ví dụ như:
+
+\begin{itemize}
+	\item Chưa thử nghiệm giải thuật CluMFEA và CluGA đã đề xuất với nhiều bộ tham số đầu vào khác nhau.
+	\item Chưa khai thác được hết những nhận định có ích khác mà kết quả thực nghiệm có thể đem lại.
+\end{itemize}
+Một số hướng đi khả thi trong tương lai để phát triển đồ án như sau:
+\begin{itemize}
+	\item Thay đổi tham số đầu vào và chạy thử nghiệm nhiều lần.
+	\item Đề xuất những toán tử di truyền mới cho giải thuật.
+	\item Tìm hiểu những mối tương quan khác có thể ảnh hưởng tới hiệu quả của giải thuật, ví dụ như trọng số cạnh trung bình, độ dài đường đi trung bình,...
+	\item Đề xuất giải thuật MFEA cho các bài toán khác.
+\end{itemize}
+

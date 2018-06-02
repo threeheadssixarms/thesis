@@ -1,0 +1,103 @@
+%%=====-------------------------------- 1. Dữ liệu thực nghiệm --------------------------====
+\section{Dữ liệu thực nghiệm} \label{chap_mfeaProposed:sec:dulieuthucnghiem}
+
+Phần thực nghiệm của đồ án sử dụng dữ liệu là 6 tập dữ liệu chuẩn MOM của bài toán người đi du lịch phân cụm Euclid (Euclidean Clustered Travelling Salesman problem) được công bố trong  [9] bởi M. Mestria và các cộng sự. Các tập dữ liệu này phù hợp cho các bài toán về cây phân cụm.
+
+Các tập dữ liệu MOM có thể được tải xuống từ địa chỉ \url{http://www.akira.ruc.dk/~keld/research/CLKH/MOM.tgz}. Các bài toán đầu vào thuộc bộ dữ liệu được phân loại dựa trên số đỉnh của đồ thị, bao gồm 3 tập dữ liệu loại nhỏ (Type Small) và 3 tập dữ liệu loại lớn (Type Large). Kích thước của các bài toán thuộc 3 tập nhỏ là từ 30 đến 120 đỉnh. Kích thước các bài toán thuộc 3 tập lớn là từ 260 đến 300 đỉnh.
+
+Do đầu vào của bài toán CSPT cần thêm thông tin về đỉnh nguồn, các bộ dữ liệu đã được điều chỉnh để phù hợp với bài toán. Cụ thể, một đỉnh được chọn ngẫu nhiên trong các đỉnh có sẵn để làm đỉnh nguồn và thêm vào trong mỗi bộ dữ liệu.
+
+Trong giới hạn của đồ án, giải thuật được thực nghiệm trên 3 bộ dữ liệu loại nhỏ của MOM là các tập Type 1, Type 5 và Type 6. Các bộ dữ liệu này cùng với thông tin về đỉnh nguồn đã được thêm vào có thể tìm thấy tại  \url{https://drive.google.com/drive/folders/1owpNkxvhIc6jqyr54w2KvyIV2RTaAH-p?usp=sharing}.
+
+ 
+ %%=================--------------------------------  3.	Môi trường thực nghiệm ---------------------------========================
+\section{Nội dung thực nghiệm} \label{chap_mfeaProposed:sec:caidatthucnghiem}
+Thực nghiệm sẽ cài đặt giải thuật CluMFEA và CluGA đã đề xuất ở Chương 3 để giải bài toán CluSPT và bài toán CluMRCT.
+
+Chương trình cài đặt giải thuật CluMFEA gồm hai tác vụ, một tác vụ CSPT và một tác vụ CluMRCT. Nói cách khác, một chương trình CluMFEA sẽ giải đồng thời cả hai bài toán. Trong khi đó, giải thuật CluGA sẽ được cài đặt thành hai chương trình: một chương trình CluGA giải bài toán CluSPT và một chương trình CluGA giải bài toán CluMRCT. 
+
+Mục đích của thực nghiệm này là so sánh hiệu quả của giải thuật CluMFEA so với CluGA đối với từng bài toán. Giá trị hàm mục tiêu (chi phí) và thời gian chạy sẽ được tổng hợp, thống kê, phân tích và đánh giá. Các kết quả được trình bày trong phần Kết quả thực nghiệm.
+
+Để có thể có được sự đánh giá chính xác đối với hai giải thuật CluMFEA và CluGA, những tham số thực nghiệm sau sẽ được sử dụng:
+\begin{itemize}
+	\item 	$nInds$ – Số cá thể trong quần thể tiến hóa của mỗi thế hệ
+	\item $nGens$ – Số thế hệ
+	\item $nTasks$ – Số tác vụ của giải thuật
+	\item $nET$– Số tác vụ được đánh giá cho mỗi cá thể trong một thế hệ
+	\item $nEvals$ – Tổng số phép đánh giá cá thể của giải thuật, được tính bằng công thức: $nEvals=nInds* nGens *nET$
+	\item $rmp$ – Xác suất ghép đôi ngẫu nhiên của CluMFEA
+	\item $cRate$ – Xác suất lai ghép của CluGA
+	\item $mRate$ – Xác suất đột biến của CluGA
+	\item $nRuns$ – Số lần chạy
+\end{itemize}
+
+%\setlength{\intextsep}{3pt}
+
+%\setlength{\intextsep}{1pt} 
+
+Tham số của thực nghiệm cho từng giải thuật được cho trong bảng dưới đây:
+\begin{center}
+	\begin{tabular}{p{4.8cm} p{5.3cm} c}	
+		\hline 
+			 & CluMFEA & CluGA \\ 
+		\hline 
+		$nInds$	 & 100 & 100 \\ 
+		\hline
+		$nGens$ & 500 & 500 \\
+		\hline 
+		$nTasks$ & 2 & 1 \\
+		\hline
+		$nET$ & 1 & 1 \\
+		\hline 
+		$nEvals$ & 50000 & 50000 \\ 
+		\hline 
+		$rmp$ & 0.2 & \\ 
+		\hline 
+		$mRate$ & & 0.6 \\ 
+		\hline 
+		$cRate$ & & 0.02 \\  
+		\hline 
+		$nRuns$ & 20 & 20 \\
+		\hline
+	\end{tabular} 
+\end{center} 
+  
+  
+%%=================-------------------------------- 2.	Nội dung thực nghiệm ---------------------------========================
+%\section{Nội dung thực nghiệm} \label{chap_mfeaProposed:sec:noidungthucnghiem}
+
+Các tham số về số cá thể, số thế hệ, số phép tính toán được lựa chọn sao cho sự so sánh giữa CluMFEA với CluGA này là hợp lý và có nhiều ý nghĩa. Xác suất lai ghép của CluGA được lựa chọn cho thử nghiệm dựa trên tỉ lệ rmp của CluMFEA bằng cách tính sau: Trong MFEA cơ bản và CluMFEA, do các cá thể chỉ được lai ghép nếu cặp cha mẹ có chung skill factor hoặc nằm trong số một tỉ lệ rmp những cá thể còn lại. Giả định các yếu tố thực nghiệm có tính khách quan cao và thực hiện với số lần đủ nhiều, xác suất cặp cha mẹ có skill factor giống nhau là 0.5. Khi đó xác suất lai ghép sẽ là 0.5+rmp*0.5.
+
+Giải thuật CluMFEA đề xuất được cài đặt với tham số rmp = 0.2 nên xác suất lai ghép tương ứng của CluGA được chộn là 0.5+0.2*0.5=0.6. Xác suất đột biến của các giải thuật GA truyền thống thường được chọn rất nhỏ. Do đó, trong thực nghiệm này xác suất của CluGA được chọn là 0.02, nằm trong khoảng có thể chấp nhận.
+
+\section{Môi trường thực nghiệm}
+Môi trường: Hệ điều hành Windows 8 Ultimate-64 bit.
+
+Thông số phần cứng:
+\begin{itemize}
+\item Bộ vi xử lý: Intel Core i7-3.6 GHz.
+\item RAM: 16GB
+\end{itemize}
+
+ %%=================--------------------------------  3.	Kết quả thực nghiệm ---------------------------========================
+\section{Kết quả thực nghiệm} \label{chap_mfeaProposed:sec:ketqua}
+Để phục vụ cho việc so sánh hiệu quả hai giải thuật, dữ liệu về giá trị hàm mục tiêu (ở đây là chi phí) và thời gian thu được sử dụng để tính toán các giá trị sau:
+
+\begin{itemize}
+	\item Min – Giá trị hàm mục tiêu nhỏ nhất trong 20 lần chạy
+	\item Mean – Giá trị trung bình của hàm mục tiêu sau 20 lần chạy
+	\item Max – Giá trị hàm mục tiêu lớn nhất trong 20 lần chạy
+	\item Std – Độ lệch chuẩn của các giá trị hàm mục tiêu trong 20 lần chạy
+	\item Time – Thời gian chạy trung bình của 20 lần chạy
+	
+\end{itemize}
+
+\subsection{So sánh kết quả CluMFEA và CluGA đối với bài toán CluSPT}
+Kết quả thực nghiệm cho thấy CluMFEA cho lời giải trung bình tốt hơn CluGA trên 48/85 bài toán đầu vào của 3 tập dữ liệu Type 1, Type 5, Type 6. 
+
+Có thể dễ dàng nhận thấy một hiện tượng bất thường: CluMFEA vượt trội hơn CluGA ở 20/21 bài toán đầu vào của Type 5, nhưng lại kém hơn CluGA ở hơn một nửa số bài toán trong hai tập còn lại. Các bài toán đầu vào trong mỗi tập dữ liệu của MOM được tạo ra bằng cùng một thuật toán và thường mang đặc điểm chung nào đó [10]. Do đó, một câu hỏi được đặt ra là phải chăng tồn tại ít nhất một yếu tố nào đó chi phối mức độ vượt trội của CluMFEA so với CluGA, hay nói cách khác là chi phối hiệu quả của hai giải thuật khi giải bài toán CSPT.
+ 
+Sau đây là kết quả  cụ thể trên 3 tập dữ liệu:   
+
+
+\subsection{So sánh kết quả CluMFEA và CluGA đối với bài toán CluMRCT}

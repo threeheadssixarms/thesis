@@ -1,0 +1,308 @@
+% arara: PDFLaTeX
+% arara: nomencl
+% arara: PDFLaTeX
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{comment}
+%\usepackage{enumitem}
+\usepackage{enumerate}
+%\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{cases}
+\usepackage{fancybox}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{longtable,booktabs}
+\usepackage{listings}
+\usepackage[nottoc]{tocbibind}
+\usepackage{indentfirst}
+\usepackage[english]{babel}
+\usepackage{algpseudocode}
+\usepackage{subcaption}
+%\usepackage[refpage]{nomencl}
+
+%\makenomenclature
+\usepackage{acro}
+\acsetup{
+  only-used = false,
+  list-style = extra-tabular
+}
+
+\usepackage{algorithm}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}  
+\usepackage[left=3cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+%\lstset{
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+%   language = Java,
+%   basicstyle=\ttfamily \fontsize{12}{15}\selectfont,   
+	% numbers=left,
+%   frame=lrtb,
+%tabsize=3
+%}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=red 
+}
+\setlength{\parskip}{0.6em}
+\addto\captionsenglish{%
+ \renewcommand\chaptername{Chương}
+ \renewcommand{\contentsname}{Mục lục} 
+ \renewcommand{\listtablename}{Danh sách bảng}
+ \renewcommand{\listfigurename}{Danh sách hình vẽ}
+ \renewcommand{\tablename}{Bảng}
+ \renewcommand{\figurename}{Hình}
+ \renewcommand{\bibname}{Tài liệu tham khảo}
+}
+
+\makeatletter
+\newcommand{\vast}{\bBigg@{4}}
+\newcommand{\Vast}{\bBigg@{5}}
+\newcommand{\vastl}{\mathopen\vast}
+\newcommand{\vastm}{\mathrel\vast}
+\newcommand{\vastr}{\mathclose\vast}
+\newcommand{\Vastl}{\mathopen\Vast}
+\newcommand{\Vastm}{\mathrel\Vast}
+\newcommand{\Vastr}{\mathclose\Vast}
+\makeatother
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+\newtheorem{definition}{Định nghĩa}[chapter]
+%\newtheorem{lema}{Bổ đề}[chapter]
+%\newtheorem{theorem}{Định lý}[chapter]
+%Bang chu viet tắt---------------
+\DeclareAcronym{ERP}{
+  short = ERP ,
+  long  = Enterprise Resource Planning - Quản trị doanh nghiệp ,
+  class = abbrev
+}
+\DeclareAcronym{JSP}{
+  short = JSP ,
+  long  = Java Server Pages ,
+  class = abbrev
+}
+\DeclareAcronym{FTL}{
+  short = FTL ,
+  long  = FreeMarker Template Language ,
+  class = abbrev
+}
+\DeclareAcronym{SOAP}{
+  short = SOAP ,
+  long  = simple object access protocol là một dạng web service ,
+  class = abbrev
+}
+\DeclareAcronym{GRASP}{
+  short = GRASP ,
+  long  = A Greedy Randomized Adaptive Search Procedure,
+  class = abbrev
+}
+\DeclareAcronym{TSP}{
+  short = TSP ,
+  long  = Traveling salesman problem,
+  class = abbrev
+}
+\DeclareAcronym{TSPD}{
+  short = TSPD ,
+  long  = Traveling salesman problem with Drone,
+  class = abbrev
+}
+
+\DeclareAcronym{TSPkD}{
+  short = TSPkD ,
+  long  = Traveling salesman problem with k Drones,
+  class = abbrev
+}
+\DeclareAcronym{CSP}{
+  short = CSP ,
+  long  = bài toán thỏa mãn ràng buộc - Constraint Satisfaction Problem ,
+  class = abbrev
+}
+\DeclareAcronym{DD}{
+  short = DD ,
+  long  = một chuyến giao hàng bởi drone - drone delivery ,
+  class = abbrev
+}
+
+\DeclareAcronym{TD}{
+  short = TD ,
+  long  = một hành trình giao hàng bởi xe tải - truck delivery,
+  class = abbrev
+}
+
+\DeclareAcronym{MIP}{
+  short = MIP ,
+  long  = Mixed Integer Programming,
+  class = abbrev
+}
+
+\DeclareAcronym{FSTSP}{
+  short = FSTSP ,
+  long  = Flying Sidekick Traveling Salesman Problem,
+  class = abbrev
+}
+\DeclareAcronym{GTSP}{
+  short = GTSP ,
+  long  = Generalized Traveling
+Salesman Problem,
+  class = abbrev
+}
+
+\DeclareAcronym{HDP}{
+  short = HDP ,
+  long  = Heterogeneous Delivery Problem,
+  class = abbrev
+}
+% class `nomencl': nomenclature
+
+%--------------------------------
+\begin{document}
+\thispagestyle{empty}
+\thisfancypage{
+\setlength{\fboxrule}{1pt}
+\doublebox}{}
+
+\begin{center}
+{\fontsize{16}{19}\fontfamily{cmr}\selectfont TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI\\
+VIỆN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG}\\
+\textbf{------------*******---------------}\\[1cm]
+
+{\fontsize{23}{43}\fontfamily{cmr}\selectfont ĐỒ ÁN TỐT NGHIỆP}\\[0.1cm]
+{\fontsize{25}{10}\fontfamily{cmr}\fontseries{b}\selectfont NGÀNH CÔNG NGHỆ THÔNG TIN}\\[0.9cm]
+{\fontsize{20}{24}\fontfamily{phv}\selectfont Giải thuật tiến hóa đa nhân tố giải đồng thời hai bài toán tìm cây khung trên đồ thị phân cụm}\\[2.5cm]
+
+\hspace{-6cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Sinh viên thực hiện :}\\[0.1cm] 
+\begin{longtable}{l c c}
+Nguyễn Tuấn Đạt & 20130856 & CNTT2.02-K58 
+\end{longtable}
+\vspace{0.3cm}
+\hspace{-6cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giảng viên hướng dẫn :}\\[0.1cm]
+\hspace{-2.7cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont PGS. TS. Huỳnh Thị Thanh Bình \\[3cm]
+\fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 05--2018
+\end{center}
+%\newgeometry{top=1cm,bottom=1cm}
+\addcontentsline{toc}{chapter}{Phiếu giao nhiệm vụ đồ án tốt nghiệp}
+\chapter*{Phiếu giao nhiệm vụ đồ án tốt nghiệp}
+\section*{Thông tin về sinh viên}
+
+\begin{itemize}
+\begin{multicols}{2}
+\item \textbf{Họ và tên :} Lê Phương Thảo
+\item \textbf{Điện thoại liên lạc :} 01236400088
+\item \textbf{Lớp :} Việt Nhật IS1 K58
+\item \textbf{Email : } lepgthao@gmail.com
+\item \textbf{Hệ đào tạo :} Đại học chính quy
+\end{multicols}
+\item \textbf{Đồ án tốt nghiệp được thực hiện tại :} Bộ môn Khoa học máy tính - Viện Công nghệ thông tin và truyền thông.
+\item \textbf{Thời gian làm đồ án tốt nghiệp : } Từ ngày 05/11/2017 đến 28/5/2018.
+\end{itemize}
+\section*{Mục đích nội dung của đồ án tốt nghiệp}
+Đề xuất Giải thuật tiến hóa đa nhân tố giải đồng thời hai bài toán tìm cây khung trên đồ thị phân cụm.
+\section*{Các nhiệm vụ cụ thể của đồ án tốt nghiệp}
+\begin{enumerate}
+\item Nghiên cứu bài toán lập lộ trình giao hàng kết hợp xe tải và một thiết bị bay drone.
+\item Phát triển thuật toán giải quyết bài toán lập lộ trình giao hàng kết hợp xe tải và nhiều thiết bị bay drone.
+\item Thực nghiệm và đánh giá hai bài toán.
+\item Xây dựng chương trình ứng dụng hỗ trợ lập lộ trình giao hàng kết hợp xe tải và thiết bị bay drone.
+\end{enumerate}
+\section*{Lời cam đoan của sinh viên}
+Tôi - Lê Phương Thảo - cam kết đồ án tốt nghiệp là sản phẩm  của bản thân tôi dưới sự hướng dẫn của \textit{PGS. TS. Huỳnh Thị Thanh Bình}.  \\
+
+Các kết quả trong đồ án 	là trung thực, không phải sao chép toàn văn của bất kì công trình nào khác.\\
+
+%\restoregeometry
+\begin{minipage}{0.5\textwidth}
+.
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+
+\begin{center}
+\textit{Hà Nội}, ngày 28 tháng 05 năm 2018 \\
+Sinh viên\\[3cm]
+
+Lê Phương Thảo
+\end{center}
+\end{minipage}
+\subsection*{Xác nhận của giáo viên hướng dẫn về mức độ hoàn thành và cho phép bảo vệ:}
+.\dotfill \\
+.\dotfill \\ 
+ .\dotfill \\ 
+ .\dotfill \\
+ \begin{minipage}{0.5\textwidth}
+.
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+
+\begin{center}
+\textit{Hà Nội}, ngày 28 tháng 05 năm 2018 \\
+Giảng viên hướng dẫn\\[3cm]
+
+\textit{PGS. TS. Huỳnh Thị Thanh Bình}
+\end{center}
+\end{minipage}
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\chapter*{Lời cảm ơn}
+Lời cảm ơn 
+\newpage
+\pdfbookmark{\contentsname}{toc}
+
+\tableofcontents
+\newpage
+\addcontentsline{toc}{chapter}{Bảng chữ viết tắt}
+\chapter*{Bảng chữ viết tắt}
+%\printacronyms[include-classes=abbrev,heading=none,sort=false]
+\begin{longtable}{|l|l|}
+\toprule
+Chữ viết tắt & Tên đầy đủ\\
+\midrule
+        \toprule
+ERP &  Hệ thống quản trị doanh nghiệp - Enterprise Resource Planning \\ \hline
+JSP &  Java Server Pages \\ \hline
+FTL & FreeMarker Template Language \\ \hline
+SOAP & Simple object access protocol (một dạng web service) \\ \hline
+GRASP & A Greedy Randomized Adaptive Search Procedure \\ \hline
+TSP & Traveling salesman problem \\ \hline
+TSPD & Traveling salesman problem with Drone \\ \hline
+TSPkD & Traveling salesman problem with k Drones \\ \hline
+CSP & Bài toán thỏa mãn ràng buộc - Constraint Satisfaction Problem \\ \hline
+DD & Một chuyến giao hàng bởi drone - Drone delivery  \\ \hline
+TD & Một hành trình giao hàng bởi xe tải - Truck delivery \\ \hline
+MIP &  Mixed Integer Programming \\ \hline
+FSTSP & Flying Sidekick Traveling Salesman Problem \\ \hline
+GTSP & Generalized Traveling Salesman Problem \\ \hline
+HDP & Heterogeneous Delivery Problem \\ \hline
+\end{longtable}
+%\printacronyms[include-classes=nomencl,name=Danh mục]
+\listoftables
+\listoffigures
+
+
+%\printnomenclature
+\addcontentsline{toc}{chapter}{Mở đầu}
+\chapter*{Giới thiệu chung}
+Bài toán lập lịch vận chuyển hàng hóa từ lâu đã là lớp bài toán tối ưu hóa quan trọng và có tính thực tiễn cao. Công nghệ ngày càng phát triển, đặc biệt gần đây, phương tiện bay không người lái trở phổ biến với nhiều mẫu mã đặc trưng cho các mục đích sử dụng khác nhau. Thiết bị bay không người lái (hay còn gọi là drone) đã và đang được nghiên cứu sử dụng trong ngành công nghiệp vận chuyển hàng hóa. Với công nghệ hiện nay, drone có thể nâng những vật có khối lượng hàng chục kilogram và quãng đường bay có thể đạt đến hàng chục kilometers. Những đặc tính trên khiến thiết bị bay không người lái có thể là xu hướng trong nhiều năm tới đây.
+
+Trong thời buổi công nghệ thông tin phát triển rộng khắp như hiện nay, bài toán lập lịch vận chuyển hàng hóa gần như là một phần không thể thiếu trong hệ thống \ac{ERP} của các công ty vận tải hàng đầu thế giới. Chính vì vậy trong đồ án này, chúng tôi đã phát triển và cài đặt mô hình thuật toán tìm kiếm cục bộ cho bài toán lập lộ trình giao hàng kết hợp xe tải và thiết bị bay không người lái ứng dụng vào công nghệ Ofbiz dưới dạng web service. Ofbiz là một ứng dụng mã nguồn mở về \ac{ERP} được Apache phát triển từ năm 2001. Ofbiz cho phép lập trình viên có thể can thiệp, thay đổi hệ thống linh hoạt cũng như có khả năng phát triển một ứng dụng độc lập hoàn chỉnh. 
+
+Nội dung chính của đồ án bao gồm 6 chương:
+\begin{itemize}
+\item \textbf{Chương 1:} Cơ sở lý thuyết.
+\item \textbf{Chương 2:} Bài toán lập lộ trình giao hàng kết hợp một xe tải với một thiết bị bay cùng các nghiên cứu liên quan.
+\item \textbf{Chương 3:} Đề xuất thuật toán tìm kiếm cục bộ giải bài toán lập lộ trình vận tải giao hàng kết hợp một xe tải và nhiều thiết bị bay.
+\item \textbf{Chương 4:} Thử nghiệm và đánh giá.
+\item \textbf{Chương 5:} Thiết kế chương trình ứng dụng.
+\item \textbf{Chương 6:} Kết luận và hướng phát  triển.
+\end{itemize}
+nd{thebibliography}
+
+
+\end{document}

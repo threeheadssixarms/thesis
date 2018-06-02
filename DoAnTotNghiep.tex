@@ -1,0 +1,268 @@
+% arara: PDFLaTeX
+% arara: nomencl
+% arara: PDFLaTeX
+\documentclass[a4paper,12pt]{report}
+\usepackage[left=3.5cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{comment}
+%\usepackage{enumitem}
+\usepackage{enumerate}
+%\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{cases}
+\usepackage{fancybox}
+
+\usepackage{listings}
+\usepackage[nottoc]{tocbibind}
+\usepackage{indentfirst}
+\usepackage[english]{babel}
+%\usepackage[refpage]{nomencl}
+
+%\makenomenclature
+%\usepackage{acro}
+%\acsetup{
+%  only-used = false,
+%  list-style = extra-tabular
+%}
+
+%\usepackage{algorithm}
+\usepackage{float}
+\usepackage{pgfplots}
+
+%===========----------------------Package----------------------===========
+%\usepackage[acronym, nopostdot, nogroupskip, nonumberlist]{glossaries}
+%\usepackage[record,abbreviations]{glossaries-extra}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{import}
+\usepackage[acronym]{glossaries}
+\setacronymstyle{long-short}
+
+\makeglossaries
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+%\usepackage{enumitem}
+\usepackage[ruled,linesnumbered,resetcount]{algorithm2e}
+\usepackage{algpseudocode}
+\usepackage{booktabs}
+%\usepackage[table]{xcolor}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{threeparttablex}
+\usepackage{graphicx}
+\usepackage[compatibility=false]{caption}
+\usepackage[labelformat=simple]{subcaption}
+\usepackage[numbers]{natbib}
+\usepackage{url}
+\usepackage{rotating}
+\usepackage{pdfpages}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{import}
+\usepackage{multicol}
+\usepackage{lineno}
+\usepackage{tabularx}
+%\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
+
+%=---------------------------------------------------o0o-------------------------------------------------
+
+
+%\usepackage{tikz-uml}
+%\usetikzlibrary{arrows.meta}
+%\usetikzlibrary{shapes.geometric}
+\PassOptionsToPackage{hyphens}{url}
+  
+
+%\lstset{
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+%   language = Java,
+%   basicstyle=\ttfamily \fontsize{12}{15}\selectfont,   
+	% numbers=left,
+%   frame=lrtb,
+%tabsize=3
+%}
+
+%
+%\hypersetup{
+%    colorlinks,
+%    citecolor=black,
+%    filecolor=black,
+%    linkcolor=blue,
+%    urlcolor=red 
+%}
+
+%===========----------------------New commands----------------------===========
+
+\setlength{\parskip}{0.6em}
+\addto\captionsenglish{%
+ \renewcommand\chaptername{Chương}
+ \renewcommand{\contentsname}{Mục lục} 
+ \renewcommand{\listtablename}{Danh sách bảng}
+ \renewcommand{\listfigurename}{Danh sách hình vẽ}
+ \renewcommand{\tablename}{Bảng}
+ \renewcommand{\figurename}{Hình}
+ \renewcommand{\bibname}{Tài liệu tham khảo}
+ \renewcommand{\algorithmcfname}{Thuật toán}
+}
+
+%\newenvironment{megaalgorithm}[1][htb]
+%{\renewcommand{\algorithmcfname}{MegaAlgorithm}% Update algorithm name
+%	\begin{algorithm}[#1]%
+%	}{\end{algorithm}}
+
+
+\makeatletter
+\newcommand{\vast}{\bBigg@{4}}
+\newcommand{\Vast}{\bBigg@{5}}
+\newcommand{\vastl}{\mathopen\vast}
+\newcommand{\vastm}{\mathrel\vast}
+\newcommand{\vastr}{\mathclose\vast}
+\newcommand{\Vastl}{\mathopen\Vast}
+\newcommand{\Vastm}{\mathrel\Vast}
+\newcommand{\Vastr}{\mathclose\Vast}
+\makeatother
+
+%\algnewcommand\algorithmicforeach{\textbf{for each}}
+%\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+\newtheorem{definition}{Định nghĩa}[chapter]
+
+
+
+%===========----------------------Glossaries----------------------===========
+\loadglsentries{Glossaries}
+
+%===========----------------------New commands----------------------===========
+\newcommand{\scalefigure}{0.20}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+%\addbibresource{references.bib}
+\renewcommand{\baselinestretch}{1.2}
+
+\begin{document}
+\glsresetall
+
+%%================------------------Sec_TrangBia-------------------=============
+\input{Chapters/Sec_Bia}
+
+
+%%================------------------Sec_PhieuGiaoNhiemVu-------------------=============
+\input{Chapters/Sec_PhieuGiaoNhiemVu}
+
+
+%%================------------------Sec_LoiCamOn-------------------=============
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\chapter*{Lời cảm ơn}
+\label{Sec_LoiCamOn}
+\input{Chapters/Sec_LoiCamOn}
+
+
+%%================------------------Sec_TomTatDoAn-------------------=============
+\addcontentsline{toc}{chapter}{Tóm tắt đồ án}
+\chapter*{Tóm tắt đồ án}
+\label{Sec_TomTatDoAn}
+\input{Chapters/Sec_TomTatDoAn}
+
+%%================------------------Sec_TomTatDoAn_EN-------------------=============
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+\label{Sec_TomTatDoAn_EN}
+\input{Chapters/Sec_TomTatDoAn_EN}
+
+%%================------------------Sec_LoiNoiDau-------------------=============
+\addcontentsline{toc}{chapter}{Lời nói đầu}
+\chapter*{Lời nói đầu}
+\label{Sec_LoiNoiDau}
+\input{Chapters/Sec_LoiNoiDau}
+
+
+
+\newpage
+\pdfbookmark{\contentsname}{toc}
+
+\tableofcontents
+\newpage
+
+%\addcontentsline{toc}{chapter}{Bảng chữ viết tắt}
+%\chapter*{Bảng chữ viết tắt}
+%%\printacronyms[include-classes=abbrev,heading=none,sort=false]
+%\begin{longtable}{|l|l|}
+%\toprule
+%Chữ viết tắt & Tên đầy đủ\\
+%\midrule
+%        \toprule
+%ERP &  Hệ thống quản trị doanh nghiệp - Enterprise Resource Planning \\ \hline
+%JSP &  Java Server Pages \\ \hline
+%FTL & FreeMarker Template Language \\ \hline
+%SOAP & Simple object access protocol (một dạng web service) \\ \hline
+%GRASP & A Greedy Randomized Adaptive Search Procedure \\ \hline
+%TSP & Traveling salesman problem \\ \hline
+%TSPD & Traveling salesman problem with Drone \\ \hline
+%TSPkD & Traveling salesman problem with k Drones \\ \hline
+%CSP & Bài toán thỏa mãn ràng buộc - Constraint Satisfaction Problem \\ \hline
+%DD & Một chuyến giao hàng bởi drone - Drone delivery  \\ \hline
+%TD & Một hành trình giao hàng bởi xe tải - Truck delivery \\ \hline
+%MIP &  Mixed Integer Programming \\ \hline
+%FSTSP & Flying Sidekick Traveling Salesman Problem \\ \hline
+%GTSP & Generalized Traveling Salesman Problem \\ \hline
+%HDP & Heterogeneous Delivery Problem \\ \hline
+%\end{longtable}
+
+
+%\printacronyms[include-classes=nomencl,name=Danh mục]
+\listoftables
+\listoffigures
+
+%%================------------------Chapter_CoSoLyThuyet-------------------=============
+%\addcontentsline{toc}{chapter}{Cơ sở lý thuyết}
+\chapter{Cơ sở lý thuyết}
+\label{Chap_CoSoLyThuyet}
+\input{Chapters/Chap_CoSoLyThuyet}
+
+
+
+%%================------------------Chap_BTCayKhungPhanCum-------------------=============
+\chapter{Bài toán cây khung phân cụm có chi phí định tuyến nhỏ nhất và bài toán cây phân cụm đường đi ngắn nhất}
+\label{Chap_BTCayKhungPhanCum}
+\input{Chapters/Chap_BTCayKhungPhanCum}
+
+
+%%================------------------Chap_mfeaGiaiCayPhanCum-------------------=============
+\chapter{Giải thuật tiến hóa đa nhiệm giải bài toán cây khung phân cụm có chi phi định tuyến nhỏ nhất và bài toán cây phân cụm đường đi ngắn nhất}
+\label{Chap_mfeaGiaiCayPhanCum}
+\input{Chapters/Chap_mfeaGiaiCayPhanCum}
+
+
+
+%%================------------------Chap_kqThucNghiem-------------------=============
+\chapter{Kết quả thực nghiệm}
+\label{Chap_kqThucNghiem}
+\input{Chapters/Chap_kqThucNghiem}
+
+
+
+%%================------------------Chap_Ketluan-------------------=============
+\chapter{Kết luận}
+\label{Chap_Ketluan}
+\input{Chapters/Chap_Ketluan}
+
+\newpage
+%\section*{References}
+
+
+%\bibliographystyle{unsrt}
+\bibliographystyle{plain}
+\bibliography{references}
+
+%\printbibliography
+
+
+
+%\printglossaries
+%\glsaddall
+
+
+
+\end{document}
